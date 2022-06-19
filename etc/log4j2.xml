@@ -2,7 +2,7 @@
 <Configuration status="DEBUG">
     <Appenders>
         <Console name="console" target="SYSTEM_OUT">
-            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%L] [%t] %-5level %logger{36} - %msg%n"/>
+            <PatternLayout pattern="%d{YYYY-MM-DD HH:mm:ss.SSS} [%L] [%t] %-5level %logger{36} - %msg%n"/>
         </Console>
         <RollingRandomAccessFile name="app" fileName="logs/app.log"
                                  filePattern="logs/$${date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.log.gz">
