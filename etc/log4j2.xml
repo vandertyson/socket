@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="DEBUG">
+    <Properties>
+        <Property name="pattern">%d{YYYY-MM-DD HH:mm:ss.SSS} [%t] %-5level %c{1.} [%L] - %msg%n</Property>
+    </Properties>
     <Appenders>
         <Console name="console" target="SYSTEM_OUT">
-            <PatternLayout pattern="%d{YYYY-MM-DD HH:mm:ss.SSS} [%L] [%t] %-5level %logger{36} - %msg%n"/>
+            <PatternLayout pattern="${pattern}"/>
         </Console>
-        <RollingRandomAccessFile name="app" fileName="logs/app.log"
+        <RollingRandomAccessFile name="app"
+                                 fileName="logs/app.log"
+                                 includeLocation="true"
                                  filePattern="logs/$${date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.log.gz">
-            <PatternLayout>
-                <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
-            </PatternLayout>
+            <PatternLayout pattern="${pattern}"/>
             <Policies>
                 <TimeBasedTriggeringPolicy/>
                 <SizeBasedTriggeringPolicy size="1 MB"/>
@@ -17,12 +20,12 @@
         </RollingRandomAccessFile>
     </Appenders>
     <Loggers>
+        <Root level="debug">
+            <!--            <AppenderRef ref="console"/>-->
+            <AppenderRef ref="app"/>
+        </Root>
         <Logger name="com.battle" level="debug" additivity="false">
             <AppenderRef ref="console"/>
-            <AppenderRef ref="app"/>
         </Logger>
-        <Root level="debug">
-            <AppenderRef ref="console"/>
-        </Root>
     </Loggers>
 </Configuration>

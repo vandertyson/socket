@@ -1,0 +1,3 @@
+!!com.battle.client.ClientConfiguration
+maxConnectTimeout: 10000
+poolSize: 10
