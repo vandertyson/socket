@@ -1,7 +1,7 @@
 package com.battle.client;
 
+import com.battle.codec.ClientCodec;
 import com.battle.codec.ICodec;
-import com.battle.codec.InternalCodec;
 import com.battle.model.IClientHandler;
 import com.battle.model.ISenderInfo;
 import com.battle.model.InternalMessage;
@@ -34,7 +34,7 @@ public class Client {
     private final Vertx vertx;
     private final NetClient client;
 
-    private final ICodec codec = new InternalCodec();
+    private final ICodec codec = new ClientCodec();
 
     public Client(ClientConfiguration configuration, IClientHandler handler) {
         Objects.requireNonNull(configuration);

@@ -1,10 +1,9 @@
 package com.battle.server;
 
 import com.battle.codec.ICodec;
-import com.battle.codec.InternalCodec;
+import com.battle.codec.ServerCodec;
 import com.battle.model.IServerContext;
 import com.battle.utils.LogUltis;
-import io.vertx.core.AsyncResult;
 import io.vertx.core.Handler;
 import io.vertx.core.Vertx;
 import io.vertx.core.buffer.Buffer;
@@ -28,7 +27,7 @@ public class Server {
     private final NetServer server;
     private final ServerConfiguration configuration;
     private final Map<String, NetSocket> connectedSocket = new ConcurrentHashMap<>();
-    private ICodec codec = new InternalCodec();
+    private ICodec codec = new ServerCodec();
 
     public Server(ServerConfiguration configuration, Handler<IServerContext> handler) {
         Objects.requireNonNull(handler, "Handler is required");

@@ -4,7 +4,6 @@ import com.battle.codec.ICodec;
 import com.battle.model.ISenderInfo;
 import com.battle.model.IServerContext;
 import com.battle.model.InternalMessage;
-import io.netty.util.CharsetUtil;
 import io.vertx.core.buffer.Buffer;
 import io.vertx.core.net.NetSocket;
 import org.apache.logging.log4j.LogManager;
@@ -29,14 +28,14 @@ public class ServerContextImpl implements IServerContext {
 
     @Override
     public void sendResponse(byte[] data) {
-        InternalMessage internalMessage = new InternalMessage(data, request.getId());
-        Buffer encode = codec.encode(internalMessage);
-        socket.write(encode);
+        sendResponse(new String(data));
     }
 
     @Override
     public void sendResponse(String data) {
-        sendResponse(data.getBytes(CharsetUtil.UTF_8));
+        InternalMessage internalMessage = new InternalMessage(data);
+        Buffer encode = codec.encode(internalMessage);
+        socket.write(encode);
     }
 
     public ServerContextImpl(Buffer requestBuffer, NetSocket socket, ICodec codec) {

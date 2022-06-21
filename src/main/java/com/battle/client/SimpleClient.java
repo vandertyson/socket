@@ -2,14 +2,10 @@ package com.battle.client;
 
 import com.battle.model.IClientHandler;
 import com.battle.model.ISenderInfo;
-import com.battle.model.IServerContext;
 import com.battle.model.InternalMessage;
-import com.battle.server.Server;
-import com.battle.server.ServerConfiguration;
 import com.battle.utils.YamlUtils;
 import io.netty.util.internal.logging.InternalLoggerFactory;
 import io.netty.util.internal.logging.Log4J2LoggerFactory;
-import io.vertx.core.Handler;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.core.LoggerContext;
@@ -36,14 +32,9 @@ public class SimpleClient {
             public void onResponse(InternalMessage message, ISenderInfo sender) {
                 logger.info("Receive server response sender={} message={}", sender, message);
             }
-
-            @Override
-            public void onTimeout(Long id) {
-                logger.info("Timeout request id {}", id);
-            }
         });
-
-        client.send("127.0.0.1", 9000, new InternalMessage("hello".getBytes(), 1l));
+        String data = "{\"event\":\"walk\",\"data\":{\"gps\":[110000,110000],\"grav\":[12,212,122],\"step\":111}}";
+        client.send("127.0.0.1", 9000, new InternalMessage(data));
 
     }
 }
