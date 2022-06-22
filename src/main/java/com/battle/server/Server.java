@@ -30,10 +30,14 @@ public class Server {
     private ICodec codec = new ServerCodec();
 
     public Server(ServerConfiguration configuration, Handler<IServerContext> handler) {
+        this(Vertx.vertx(), configuration, handler);
+    }
+
+    public Server(Vertx vertx, ServerConfiguration configuration, Handler<IServerContext> handler) {
         Objects.requireNonNull(handler, "Handler is required");
         this.configuration = configuration;
         this.handler = handler;
-        vertx = Vertx.vertx();
+        this.vertx = vertx;
         options = new NetServerOptions().setPort(configuration.getPort());
         server = vertx.createNetServer(options);
     }
@@ -68,4 +72,8 @@ public class Server {
         return socket.remoteAddress().host() + ":" + socket.remoteAddress().port();
     }
 
+    public void shutdown() {
+        server.close();
+        vertx.close();
+    }
 }

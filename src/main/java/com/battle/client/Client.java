@@ -37,11 +37,15 @@ public class Client {
     private final ICodec codec = new ClientCodec();
 
     public Client(ClientConfiguration configuration, IClientHandler handler) {
+        this(Vertx.vertx(), configuration, handler);
+    }
+
+    public Client(Vertx vertx, ClientConfiguration configuration, IClientHandler handler) {
         Objects.requireNonNull(configuration);
         Objects.requireNonNull(handler);
         this.configuration = configuration;
         this.handler = handler;
-        vertx = Vertx.vertx();
+        this.vertx = vertx;
         NetClientOptions options = new NetClientOptions();
         client = vertx.createNetClient(options);
     }
