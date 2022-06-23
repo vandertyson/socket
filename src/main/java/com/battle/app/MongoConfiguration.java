@@ -1,10 +1,13 @@
 package com.battle.app;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class MongoConfiguration {
     private String username;
     private String password;
+    @JsonProperty("db_name")
     private String database;
-    private String port;
+    private Integer port;
     private String host;
 
     public String getUsername() {
@@ -31,11 +34,11 @@ public class MongoConfiguration {
         this.database = database;
     }
 
-    public String getPort() {
+    public Integer getPort() {
         return port;
     }
 
-    public void setPort(String port) {
+    public void setPort(Integer port) {
         this.port = port;
     }
 
